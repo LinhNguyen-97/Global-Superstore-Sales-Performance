@@ -1,19 +1,18 @@
 WITH
-  Trans_Location AS(
-  SELECT
-    DISTINCT City,
-    State,
-    Country,
-    Region,
-    Market
-  FROM
-    global-superstore-475905.global_superstore_rawdata.Orders ),
   dLocation AS(
   SELECT
     ROW_NUMBER() OVER (ORDER BY City, State, Country, Region, Market ) AS LocationID,
     *
-  FROM
-    Trans_Location )
+  FROM (
+    SELECT
+      DISTINCT City,
+      State,
+      Country,
+      Region,
+      Market
+    FROM
+      global-superstore-475905.global_superstore_rawdata.Orders ) 
+  )
 SELECT
   `Order ID`,
   `Order Date`,
