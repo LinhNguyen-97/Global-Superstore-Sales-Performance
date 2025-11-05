@@ -1,5 +1,7 @@
-WITH
-  Trans_Location AS(
+SELECT
+  ROW_NUMBER() OVER (ORDER BY City, State, Country, Region, Market, Region_use ) AS LocationID,
+  *
+FROM (
   SELECT
     DISTINCT City,
     State,
@@ -14,9 +16,3 @@ WITH
     AS Region_use
   FROM
     global-superstore-475905.global_superstore_rawdata.Orders )
-
-SELECT
-  ROW_NUMBER() OVER (ORDER BY City, State, Country, Region, Market, Region_use ) AS LocationID,
-  *
-FROM
-  Trans_Location
